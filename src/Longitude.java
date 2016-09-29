@@ -24,4 +24,22 @@ public class Longitude {
     public Double radians () {
         return m_value_radians;
     }
+
+    public Longitude offset(Latitude t_latitude, EllipsoidDatum.Bearing t_bearing, Double t_meters) {
+        Double t_b_value_radians;
+        switch (t_bearing) {
+            case EAST:
+                t_b_value_radians = m_value_radians + (t_meters/(EllipsoidDatum.EARTH.a()*Math.cos(t_latitude.radians())));
+                return new Longitude(Math.toDegrees(t_b_value_radians));
+            case WEST:
+                t_b_value_radians = m_value_radians - (t_meters/(EllipsoidDatum.EARTH.a()*Math.cos(t_latitude.radians())));
+                return new Longitude(Math.toDegrees(t_b_value_radians));
+            default:
+                throw new IllegalArgumentException("invalid bearing for longitude offset");
+        }
+    }
+
+    public String toString() {
+        return String.format("%s", m_value_degrees);
+    }
 }

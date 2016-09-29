@@ -9,6 +9,13 @@ public enum EllipsoidDatum {
     private final double m_flattening;
     private final double m_inverse_flattening;
 
+    public enum Bearing {
+        NORTH,
+        SOUTH,
+        EAST,
+        WEST;
+    }
+
     EllipsoidDatum (double t_a, double t_b) {
         m_semi_major_axis = t_a;
         m_semi_minor_axis = t_b;

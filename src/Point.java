@@ -20,6 +20,10 @@ public class Point {
         return m_longitude;
     }
 
+    public Point offset(EllipsoidDatum.Bearing t_bearing_a, EllipsoidDatum.Bearing t_bearing_b, Double t_meters) {
+        return new Point(m_latitude.offset(t_bearing_a, t_meters), m_longitude.offset(m_latitude, t_bearing_b, t_meters));
+    }
+
     public Double distanceTo(Point t_point2) {
         // TODO great circle distance formula implementation
         return 0.0;
@@ -94,5 +98,9 @@ public class Point {
         //α2 = (α2 + 2*Math.PI) % (2*Math.PI); // normalize to 0..360
 
         return Math.round(s * 10000.0d) / 10000.0d; // dirty rounding to 4 places (perf. gain outweighs accuracy here TriHard)
+    }
+
+    public String toString() {
+        return String.format("(%s, %s)", m_latitude.toString(), m_longitude.toString());
     }
 }
